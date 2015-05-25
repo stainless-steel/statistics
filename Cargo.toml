@@ -1,8 +1,8 @@
 [package]
-name = "stats"
-version = "0.0.2"
+name = "statistics"
+version = "0.0.1"
 authors = ["Ivan Ukhov <ivan.ukhov@gmail.com>"]
 license = "MIT"
-repository = "https://github.com/IvanUkhov/stats"
-homepage = "https://github.com/IvanUkhov/stats"
+repository = "https://github.com/IvanUkhov/statistics"
+homepage = "https://github.com/IvanUkhov/statistics"
 description = "The package provides a statistics toolbox."

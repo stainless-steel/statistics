@@ -1,4 +1,4 @@
-# Stats
+# Statistics
 
 The package provides a statistics toolbox.
 
