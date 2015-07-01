@@ -1,5 +1,3 @@
-//! Probabilistic moments.
-
 /// Compute an estimate of the population mean from a finite sample.
 #[inline]
 pub fn mean(data: &[f64]) -> f64 {
@@ -27,7 +25,6 @@ pub fn variance(data: &[f64]) -> f64 {
 #[cfg(test)]
 mod tests {
     use assert;
-    use moment;
 
     #[test]
     fn mean() {
@@ -38,7 +35,7 @@ mod tests {
             -4.3359202230568356e-01,  3.4262446653864992e-01,
              3.5783969397257605e+00,  2.7694370298848772e+00,
         ];
-        assert::close(&[moment::mean(&data)], &[6.2428219709029698e-01], 1e-15);
+        assert::close(&[super::mean(&data)], &[6.2428219709029698e-01], 1e-15);
     }
 
     #[test]
@@ -50,6 +47,6 @@ mod tests {
             -4.3359202230568356e-01,  3.4262446653864992e-01,
              3.5783969397257605e+00,  2.7694370298848772e+00,
         ];
-        assert::close(&[moment::variance(&data)], &[3.1324921339484746e+00], 1e-15);
+        assert::close(&[super::variance(&data)], &[3.1324921339484746e+00], 1e-15);
     }
 }

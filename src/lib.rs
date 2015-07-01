@@ -3,4 +3,6 @@
 #[cfg(test)]
 extern crate assert;
 
-pub mod moment;
+mod moment;
+
+pub use moment::{mean, variance};
