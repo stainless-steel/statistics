@@ -1,3 +1,6 @@
+//! Statistics toolbox.
+
 #[cfg(test)]
-mod tests {
-}
+extern crate assert;
+
+pub mod moment;
