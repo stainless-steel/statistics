@@ -11,15 +11,19 @@ pub fn mean(data: &[f64]) -> f64 {
 ///
 /// [1]: https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance#Two-pass_algorithm
 pub fn variance(data: &[f64]) -> f64 {
-    let mu = mean(data);
-    let n = data.len() as f64;
-    let (mut sum1, mut sum2) = (0.0, 0.0);
-    for &x in data {
-        let delta = x - mu;
-        sum1 = sum1 + delta * delta;
-        sum2 = sum2 + delta;
+    match data.len() {
+        1 => 0.0,
+        n => {
+            let mu = data.iter().fold(0.0, |sum, &x| sum + x) / n as f64;
+            let (mut sum1, mut sum2) = (0.0, 0.0);
+            for &x in data {
+                let delta = x - mu;
+                sum1 = sum1 + delta * delta;
+                sum2 = sum2 + delta;
+            }
+            (sum1 - sum2 * sum2 / n as f64) / (n as f64 - 1.0)
+        },
     }
-    (sum1 - sum2 * sum2 / n) / (n - 1.0)
 }
 
 #[cfg(test)]
@@ -39,6 +43,11 @@ mod tests {
     }
 
     #[test]
+    fn mean_0() {
+        assert!(super::mean(&[]).is_nan());
+    }
+
+    #[test]
     fn variance() {
         let data = [
              5.3766713954610001e-01,  1.8338850145950865e+00,
@@ -48,5 +57,15 @@ mod tests {
              3.5783969397257605e+00,  2.7694370298848772e+00,
         ];
         assert::close(&[super::variance(&data)], &[3.1324921339484746e+00], 1e-15);
+    }
+
+    #[test]
+    fn variance_0() {
+        assert!(super::variance(&[]).is_nan());
+    }
+
+    #[test]
+    fn variance_1() {
+        assert_eq!(super::variance(&[1.0]), 0.0);
     }
 }
