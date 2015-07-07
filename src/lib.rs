@@ -1,9 +1,9 @@
 //! Statistics toolbox.
 
-use std::ops::{Add, Div, Mul, Sub};
-
 #[cfg(test)]
 extern crate assert;
+
+use std::ops::{Add, Div, Mul, Sub};
 
 mod moment;
 
