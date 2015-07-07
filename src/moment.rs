@@ -1,7 +1,9 @@
+use {Real, ToReal};
+
 /// Compute an estimate of the population mean from a finite sample.
 #[inline]
-pub fn mean(data: &[f64]) -> f64 {
-    data.iter().fold(0.0, |sum, &x| sum + x) / data.len() as f64
+pub fn mean<T: ToReal<R>, R: Real>(data: &[T]) -> R {
+    data.iter().fold(R::zero(), |sum, x| sum + x.to_real()) / R::natural(data.len())
 }
 
 /// Compute an estimate of the population variance from a finite sample.
@@ -10,18 +12,18 @@ pub fn mean(data: &[f64]) -> f64 {
 /// compensated-summation version of the [two-pass algorithm][1].
 ///
 /// [1]: https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance#Two-pass_algorithm
-pub fn variance(data: &[f64]) -> f64 {
+pub fn variance<T: ToReal<R>, R: Real>(data: &[T]) -> R {
     match data.len() {
-        1 => 0.0,
+        1 => R::zero(),
         n => {
-            let mu = data.iter().fold(0.0, |sum, &x| sum + x) / n as f64;
-            let (mut sum1, mut sum2) = (0.0, 0.0);
-            for &x in data {
-                let delta = x - mu;
+            let mu = data.iter().fold(R::zero(), |sum, x| sum + x.to_real()) / R::natural(n);
+            let (mut sum1, mut sum2) = (R::zero(), R::zero());
+            for x in data {
+                let delta = x.to_real() - mu;
                 sum1 = sum1 + delta * delta;
                 sum2 = sum2 + delta;
             }
-            (sum1 - sum2 * sum2 / n as f64) / (n as f64 - 1.0)
+            (sum1 - sum2 * sum2 / R::natural(n)) / (R::natural(n) - R::one())
         },
     }
 }
@@ -44,7 +46,7 @@ mod tests {
 
     #[test]
     fn mean_0() {
-        assert!(super::mean(&[]).is_nan());
+        assert!(super::mean::<f64, f64>(&[]).is_nan());
     }
 
     #[test]
@@ -61,11 +63,11 @@ mod tests {
 
     #[test]
     fn variance_0() {
-        assert!(super::variance(&[]).is_nan());
+        assert!(super::variance::<f64, f64>(&[]).is_nan());
     }
 
     #[test]
     fn variance_1() {
-        assert_eq!(super::variance(&[1.0]), 0.0);
+        assert_eq!(super::variance::<_, f64>(&[1.0]), 0.0);
     }
 }

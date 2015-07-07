@@ -1,8 +1,86 @@
 //! Statistics toolbox.
 
+use std::ops::{Add, Div, Mul, Sub};
+
 #[cfg(test)]
 extern crate assert;
 
 mod moment;
 
 pub use moment::{mean, variance};
+
+/// A real number.
+pub trait Real: Copy + Add<Output=Self> + Div<Output=Self> + Mul<Output=Self> + Sub<Output=Self> {
+    /// Return the unity.
+    fn one() -> Self;
+
+    /// Return the zero.
+    fn zero() -> Self;
+
+    /// Create a real number from a natural one.
+    fn natural(usize) -> Self;
+}
+
+/// A means of converting an arbitrary quantity to a real number.
+pub trait ToReal<T: Real> {
+    /// Convert to a real number.
+    fn to_real(&self) -> T;
+}
+
+macro_rules! real(
+    ($kind:ty) => (
+        impl Real for $kind {
+            #[inline(always)]
+            fn one() -> Self {
+                1.0
+            }
+
+            #[inline(always)]
+            fn zero() -> Self {
+                0.0
+            }
+
+            #[inline(always)]
+            fn natural(number: usize) -> Self {
+                number as $kind
+            }
+        }
+    );
+);
+
+real!(f32);
+real!(f64);
+
+macro_rules! to_real(
+    ($kind:ty) => (
+        impl ToReal<f32> for $kind {
+            #[inline(always)]
+            fn to_real(&self) -> f32 {
+                *self as f32
+            }
+        }
+
+        impl ToReal<f64> for $kind {
+            #[inline(always)]
+            fn to_real(&self) -> f64 {
+                *self as f64
+            }
+        }
+    );
+);
+
+to_real!(u8);
+to_real!(u16);
+to_real!(u32);
+to_real!(u64);
+
+to_real!(i8);
+to_real!(i16);
+to_real!(i32);
+to_real!(i64);
+
+to_real!(f32);
+to_real!(f64);
+
+to_real!(isize);
+to_real!(usize);
