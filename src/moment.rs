@@ -3,7 +3,7 @@ use {Real, ToReal};
 /// Compute an estimate of the population mean from a finite sample.
 #[inline]
 pub fn mean<T: ToReal<R>, R: Real>(data: &[T]) -> R {
-    data.iter().fold(R::zero(), |sum, x| sum + x.to_real()) / R::natural(data.len())
+    data.iter().fold(R::zero(), |sum, x| sum + x.to_real()) / R::from_natural(data.len())
 }
 
 /// Compute an estimate of the population variance from a finite sample.
@@ -16,14 +16,14 @@ pub fn variance<T: ToReal<R>, R: Real>(data: &[T]) -> R {
     match data.len() {
         1 => R::zero(),
         n => {
-            let mu = data.iter().fold(R::zero(), |sum, x| sum + x.to_real()) / R::natural(n);
+            let mu = data.iter().fold(R::zero(), |sum, x| sum + x.to_real()) / R::from_natural(n);
             let (mut sum1, mut sum2) = (R::zero(), R::zero());
             for x in data {
                 let delta = x.to_real() - mu;
                 sum1 = sum1 + delta * delta;
                 sum2 = sum2 + delta;
             }
-            (sum1 - sum2 * sum2 / R::natural(n)) / (R::natural(n) - R::one())
+            (sum1 - sum2 * sum2 / R::from_natural(n)) / (R::from_natural(n) - R::one())
         },
     }
 }

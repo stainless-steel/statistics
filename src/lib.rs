@@ -18,7 +18,7 @@ pub trait Real: Copy + Add<Output=Self> + Div<Output=Self> + Mul<Output=Self> + 
     fn zero() -> Self;
 
     /// Create a real number from a natural one.
-    fn natural(usize) -> Self;
+    fn from_natural(usize) -> Self;
 }
 
 /// A means of converting an arbitrary quantity to a real number.
@@ -41,7 +41,7 @@ macro_rules! real(
             }
 
             #[inline(always)]
-            fn natural(number: usize) -> Self {
+            fn from_natural(number: usize) -> Self {
                 number as $kind
             }
         }
