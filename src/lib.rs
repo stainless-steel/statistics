@@ -86,11 +86,11 @@ to_real!(i32, f64);
 to_real!(i64, f32);
 to_real!(i64, f64);
 
+to_real!(f32, f32);
+to_real!(f64, f64);
+
 to_real!(isize, f32);
 to_real!(isize, f64);
 
 to_real!(usize, f32);
 to_real!(usize, f64);
-
-to_real!(f32, f32);
-to_real!(f64, f64);
