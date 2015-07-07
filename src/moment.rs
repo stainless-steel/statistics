@@ -46,7 +46,7 @@ mod tests {
 
     #[test]
     fn mean_0() {
-        assert!(super::mean::<f64, f64>(&[]).is_nan());
+        assert!(super::mean::<f64, _>(&[]).is_nan());
     }
 
     #[test]
@@ -63,7 +63,7 @@ mod tests {
 
     #[test]
     fn variance_0() {
-        assert!(super::variance::<f64, f64>(&[]).is_nan());
+        assert!(super::variance::<f64, _>(&[]).is_nan());
     }
 
     #[test]

@@ -52,35 +52,45 @@ real!(f32);
 real!(f64);
 
 macro_rules! to_real(
-    ($kind:ty) => (
-        impl ToReal<f32> for $kind {
+    ($kind:ty, $real:ty) => (
+        impl ToReal<$real> for $kind {
             #[inline(always)]
-            fn to_real(&self) -> f32 {
-                *self as f32
-            }
-        }
-
-        impl ToReal<f64> for $kind {
-            #[inline(always)]
-            fn to_real(&self) -> f64 {
-                *self as f64
+            fn to_real(&self) -> $real {
+                *self as $real
             }
         }
     );
 );
 
-to_real!(u8);
-to_real!(u16);
-to_real!(u32);
-to_real!(u64);
+to_real!(u8, f32);
+to_real!(u8, f64);
 
-to_real!(i8);
-to_real!(i16);
-to_real!(i32);
-to_real!(i64);
+to_real!(u16, f32);
+to_real!(u16, f64);
 
-to_real!(f32);
-to_real!(f64);
+to_real!(u32, f32);
+to_real!(u32, f64);
 
-to_real!(isize);
-to_real!(usize);
+to_real!(u64, f32);
+to_real!(u64, f64);
+
+to_real!(i8, f32);
+to_real!(i8, f64);
+
+to_real!(i16, f32);
+to_real!(i16, f64);
+
+to_real!(i32, f32);
+to_real!(i32, f64);
+
+to_real!(i64, f32);
+to_real!(i64, f64);
+
+to_real!(isize, f32);
+to_real!(isize, f64);
+
+to_real!(usize, f32);
+to_real!(usize, f64);
+
+to_real!(f32, f32);
+to_real!(f64, f64);
