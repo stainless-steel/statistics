@@ -1,12 +1,12 @@
 [package]
 name = "statistics"
-version = "0.3.2"
+version = "0.4.0"
+license = "Apache-2.0/MIT"
 authors = ["Ivan Ukhov <ivan.ukhov@gmail.com>"]
-license = "MIT"
-repository = "https://github.com/stainless-steel/statistics"
-homepage = "https://github.com/stainless-steel/statistics"
-documentation = "https://stainless-steel.github.io/statistics"
 description = "The package provides a statistics toolbox."
+documentation = "https://stainless-steel.github.io/statistics"
+homepage = "https://github.com/stainless-steel/statistics"
+repository = "https://github.com/stainless-steel/statistics"
 
 [dev-dependencies]
-assert = "0.6"
+assert = "0.7"
