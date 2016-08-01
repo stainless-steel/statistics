@@ -18,70 +18,67 @@ pub trait ToReal<T: Real> {
     fn to_real(&self) -> T;
 }
 
-macro_rules! real(
-    ($kind:ty) => (
-        impl Real for $kind {
-            #[inline(always)]
-            fn one() -> Self {
-                1.0
-            }
+macro_rules! implement {
+    ($($kind:ty),*) => (
+        $(
+            impl Real for $kind {
+                #[inline(always)]
+                fn one() -> Self { 1.0 }
 
-            #[inline(always)]
-            fn zero() -> Self {
-                0.0
-            }
+                #[inline(always)]
+                fn zero() -> Self { 0.0 }
 
-            #[inline(always)]
-            fn from_natural(number: usize) -> Self {
-                number as $kind
+                #[inline(always)]
+                fn from_natural(number: usize) -> Self { number as $kind }
             }
-        }
+        )*
     );
-);
+}
 
-real!(f32);
-real!(f64);
+implement!(f32, f64);
 
-macro_rules! to_real(
-    ($kind:ty, $real:ty) => (
-        impl ToReal<$real> for $kind {
-            #[inline(always)]
-            fn to_real(&self) -> $real {
-                *self as $real
+macro_rules! implement {
+    ($($kind:ty => $real:ty,)*) => (
+        $(
+            impl ToReal<$real> for $kind {
+                #[inline(always)]
+                fn to_real(&self) -> $real { *self as $real }
             }
-        }
+        )*
     );
-);
+}
 
-to_real!(u8, f32);
-to_real!(u8, f64);
+implement! {
+    u8 => f32,
+    u8 => f64,
 
-to_real!(u16, f32);
-to_real!(u16, f64);
+    u16 => f32,
+    u16 => f64,
 
-to_real!(u32, f32);
-to_real!(u32, f64);
+    u32 => f32,
+    u32 => f64,
 
-to_real!(u64, f32);
-to_real!(u64, f64);
+    u64 => f32,
+    u64 => f64,
 
-to_real!(i8, f32);
-to_real!(i8, f64);
+    i8 => f32,
+    i8 => f64,
 
-to_real!(i16, f32);
-to_real!(i16, f64);
+    i16 => f32,
+    i16 => f64,
 
-to_real!(i32, f32);
-to_real!(i32, f64);
+    i32 => f32,
+    i32 => f64,
 
-to_real!(i64, f32);
-to_real!(i64, f64);
+    i64 => f32,
+    i64 => f64,
 
-to_real!(f32, f32);
-to_real!(f64, f64);
+    f32 => f32,
+    f64 => f64,
 
-to_real!(isize, f32);
-to_real!(isize, f64);
+    isize => f32,
+    isize => f64,
 
-to_real!(usize, f32);
-to_real!(usize, f64);
+    usize => f32,
+    usize => f64,
+}
