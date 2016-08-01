@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["mean","Compute an estimate of the population mean from a finite sample."],["variance","Compute an estimate of the population variance from a finite sample."]],"trait":[["Real","A real number."],["ToReal","A means of converting an arbitrary quantity to a real number."]]});
