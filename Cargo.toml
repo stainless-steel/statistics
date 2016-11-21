@@ -1,10 +1,10 @@
 [package]
 name = "statistics"
-version = "0.4.0"
+version = "0.4.1"
 license = "Apache-2.0/MIT"
 authors = ["Ivan Ukhov <ivan.ukhov@gmail.com>"]
 description = "The package provides a statistics toolbox."
-documentation = "https://stainless-steel.github.io/statistics"
+documentation = "https://docs.rs/statistics"
 homepage = "https://github.com/stainless-steel/statistics"
 repository = "https://github.com/stainless-steel/statistics"
 
