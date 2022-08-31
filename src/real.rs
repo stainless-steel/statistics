@@ -10,6 +10,9 @@ pub trait Real: Copy + Add<Output=Self> + Div<Output=Self> + Mul<Output=Self> + 
 
     /// Create a real number from a natural one.
     fn from_natural(usize) -> Self;
+
+    /// Wrapper for sqrt on the proper fp type
+    fn sqrt(number: Self) -> Self;
 }
 
 /// A means of converting an arbitrary quantity to a real number.
@@ -30,6 +33,9 @@ macro_rules! implement {
 
                 #[inline(always)]
                 fn from_natural(number: usize) -> Self { number as $kind }
+
+                #[inline(always)]
+                fn sqrt(number: Self) -> Self { number.sqrt() }
             }
         )*
     );

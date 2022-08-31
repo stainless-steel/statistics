@@ -28,10 +28,28 @@ pub fn variance<T: ToReal<R>, R: Real>(data: &[T]) -> R {
     }
 }
 
+
+pub fn stddev<T: ToReal<R>, R: Real>(data: &[T]) -> R {
+    return R::sqrt(variance(data));
+}
+
+
 #[cfg(test)]
 mod tests {
     use assert;
 
+    #[test]
+    fn stddev() {
+        let data = [
+             5.3766713954610001e-01,  1.8338850145950865e+00,
+            -2.2588468610036481e+00,  8.6217332036812055e-01,
+             3.1876523985898081e-01, -1.3076882963052734e+00,
+            -4.3359202230568356e-01,  3.4262446653864992e-01,
+             3.5783969397257605e+00,  2.7694370298848772e+00,
+        ];
+        assert::close(&[super::stddev(&data)], &[1.769884779851071], 1e-15);
+    }
+    
     #[test]
     fn mean() {
         let data = [
